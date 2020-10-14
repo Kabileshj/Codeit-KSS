@@ -1,0 +1,8 @@
+arr = [4, 1, 2, 9, 3]
+n = len(arr)
+l = []
+for i in range(n):
+  for j in range(i,n):
+    sub_arr = arr[i:j+1]
+    l.append(sum(sub_arr)*min(sub_arr))
+print(max(l))

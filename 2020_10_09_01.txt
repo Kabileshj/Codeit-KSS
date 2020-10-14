@@ -1,0 +1,53 @@
+class Stack:
+
+  def __init__(self):
+    self.stack = []
+    self.undo = []
+    self.redo = []
+    self.read = []
+
+  def push(self, data):
+    self.stack.append(data)
+
+  def pop(self):
+    if not self.stack:
+      return
+    else:
+      data = self.stack[-1]
+      self.redo.append(data)
+      del self.stack[-1]
+
+  def repeat(self):
+    if not self.redo:
+      return 
+    else:
+      data = self.redo[-1]
+      self.stack.append(data)
+      del self.redo[-1]
+
+  def print(self):
+    if not self.stack:
+      return
+    else:
+      i = len(self.stack)
+      self.read = []
+      while i > 0:
+        data = self.stack[i-1]
+        i -= 1
+        self.read.append(data)
+      return ''.join(self.read[::-1])
+
+#main 
+stack = Stack()
+Q = ['WRITE x','WRITE y','UNDO','WRITE z','READ','REDO','READ']
+ans = []
+for action in Q:
+  if action[0] == 'W':
+    stack.push(action[-1])
+  elif action == 'UNDO':
+    stack.pop()
+  elif action == 'READ':
+    ans.append(stack.print())
+  elif action == 'REDO':
+    stack.repeat()
+print(*ans,sep=' ')

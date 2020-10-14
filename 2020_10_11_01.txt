@@ -1,0 +1,7 @@
+arr = [[5,11],[10,15],[12,20]]
+k = 12
+l = []
+for e in arr:
+  l += [int(i) for i in range(e[0],e[1]+1)]
+l.sort()
+print(l[k])
